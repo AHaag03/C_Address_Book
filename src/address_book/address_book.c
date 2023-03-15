@@ -1,16 +1,24 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "../../include/address_book.h"
 
 static int g_numContacts = 0;
-static struct address_book AddressBook;
+struct contact AddressBook[10];
 
-void addContact(const char* name, const char* phoneNumber, const char* emailAddress)
+void addContact(char* name, char* phoneNumber, char* emailAddress)
 {
+    struct contact contact = { name, phoneNumber, emailAddress };
+    printContact(contact);
+
     if (g_numContacts < 10)
     {
-        struct contact contact = { name, phoneNumber, emailAddress };
-        AddressBook.contacts[g_numContacts] = contact;
+        AddressBook[g_numContacts].name = malloc(strlen(name) + 1);
+        strcpy(AddressBook[g_numContacts].name, name);
+        AddressBook[g_numContacts].phoneNumber = malloc(strlen(phoneNumber) + 1);
+        strcpy(AddressBook[g_numContacts].phoneNumber, phoneNumber);
+        AddressBook[g_numContacts].emailAddress = malloc(strlen(emailAddress) + 1);
+        strcpy(AddressBook[g_numContacts].emailAddress, emailAddress);
         g_numContacts++;
     }
     else
@@ -23,9 +31,9 @@ int searchContactByName(const char* name)
 {
     for (int i = 0; i < g_numContacts; i++)
     {
-        if (strcmp(AddressBook.contacts[i].name, name) == 0)
+        if (strcmp(AddressBook[i].name, name) == 0)
         {
-            printContact(AddressBook.contacts[i]);
+            printContact(AddressBook[i]);
             return i;
         }
     }
@@ -37,9 +45,9 @@ int searchContactByPhone(const char* phoneNumber)
 {
     for (int i = 0; i < g_numContacts; i++)
     {
-        if (strcmp(AddressBook.contacts[i].phoneNumber, phoneNumber) == 0)
+        if (strcmp(AddressBook[i].phoneNumber, phoneNumber) == 0)
         {
-            printContact(AddressBook.contacts[i]);
+            printContact(AddressBook[i]);
             return i;
         }
     }
@@ -51,9 +59,9 @@ int searchContactByEmail(const char* emailAddress)
 {
     for (int i = 0; i < g_numContacts; i++)
     {
-        if (strcmp(AddressBook.contacts[i].emailAddress, emailAddress) == 0)
+        if (strcmp(AddressBook[i].emailAddress, emailAddress) == 0)
         {
-            printContact(AddressBook.contacts[i]);
+            printContact(AddressBook[i]);
             return i;
         }
     }
@@ -66,7 +74,7 @@ void editContactName(char* name, char* newName)
     int index = searchContactByName(name);
     if(index != -1)
     {
-        AddressBook.contacts[index].name = newName;
+        AddressBook[index].name = newName;
     }
 }
 
@@ -75,7 +83,7 @@ void editContactPhone(char* phoneNumber, char* newPhoneNumber)
     int index = searchContactByPhone(phoneNumber);
     if(index != -1)
     {
-        AddressBook.contacts[index].phoneNumber = newPhoneNumber;
+        AddressBook[index].phoneNumber = newPhoneNumber;
     }
 }
 
@@ -84,7 +92,7 @@ void editContactEmail(char* emailAddress, char* newEmailAddress)
     int index = searchContactByEmail(emailAddress);
     if(index != -1)
     {
-        AddressBook.contacts[index].emailAddress = newEmailAddress;
+        AddressBook[index].emailAddress = newEmailAddress;
     }
 }
 
@@ -97,7 +105,7 @@ int deleteContactByName(char* name)
     {
         for (int i = index; i < g_numContacts; i++)
         {
-            AddressBook.contacts[i] = AddressBook.contacts[i + 1];
+            AddressBook[i] = AddressBook[i + 1];
             g_numContacts--;
             return 0;
         }
@@ -114,7 +122,7 @@ int deleteContactByPhone(char* phoneNumber)
     {
         for (int i = index; i < g_numContacts; i++)
         {
-            AddressBook.contacts[i] = AddressBook.contacts[i + 1];
+            AddressBook[i] = AddressBook[i + 1];
             g_numContacts--;
             return 0;
         }
@@ -131,7 +139,7 @@ int deleteContactByEmail(char* emailAddress)
     {
         for (int i = index; i < g_numContacts; i++)
         {
-            AddressBook.contacts[i] = AddressBook.contacts[i + 1];
+            AddressBook[i] = AddressBook[i + 1];
             g_numContacts--;
             return 0;
         }
@@ -141,15 +149,28 @@ int deleteContactByEmail(char* emailAddress)
 
 void printContact(struct contact contact)
 {
-    printf("Name: %s\nPhone #: %s\nEmail Address: %s\n\n", contact.name, contact.phoneNumber, contact.emailAddress);
+    printf("Name: %s\n", contact.name);
+    printf("Phone #: %s\n", contact.phoneNumber);
+    printf("Email Address: %s\n", contact.emailAddress);
+    //printf("Name: %s\nPhone #: %s\nEmail Address: %s\n\n", contact.name, contact.phoneNumber, contact.emailAddress);
 }
 
 void listContacts()
 {
     for (int i = 0; i < g_numContacts; i++)
     {
+        struct contact contact = AddressBook[i];
         printf("Contact %d\n", i + 1);
-        printf("Name: %s\nPhone #: %s\nEmail Address: %s\n\n", AddressBook.contacts[i].name,
-               AddressBook.contacts[i].phoneNumber, AddressBook.contacts[i].emailAddress);
+        printContact(contact);
+    }
+}
+
+void cleanAddressBook()
+{
+    for(int i = 0; i < g_numContacts; i++)
+    {
+        free(AddressBook[i].name);
+        free(AddressBook[i].phoneNumber);
+        free(AddressBook[i].emailAddress);
     }
 }

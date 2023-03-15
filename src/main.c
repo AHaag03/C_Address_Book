@@ -1,10 +1,9 @@
 #include "../include/address_book.h"
+#include "../include//address_book_cli.h"
 
 int main()
 {
-    addContact("Joe Schmo", "555-555-5555", "joeschmo@fakemail.com");
-    addContact("John Smith", "012-345-6789", "jsmith@email.org");
-    addContact("Bob Robertson", "111-111-1111", "bobrob@mail.com");
+    cli_setup();
 
     return 0;
 }

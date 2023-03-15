@@ -13,7 +13,7 @@ struct address_book
     struct contact contacts[10];
 };
 
-void addContact(const char* name, const char* phoneNumber, const char* emailAddress);
+void addContact(char* name, char* phoneNumber, char* emailAddress);
 
 int searchContactByName(const char* name);
 
@@ -36,5 +36,7 @@ int deleteContactByEmail(char* emailAddress);
 void printContact(struct contact contact);
 
 void listContacts();
+
+void cleanAddressBook();
 
 #endif //ADDRESS_BOOK_ADDRESS_BOOK_H
