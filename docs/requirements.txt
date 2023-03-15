@@ -1,0 +1,21 @@
+Here is the list of requirements that your address book should be in a position to handle.
+
+Add Contact
+    Add a contact giving username
+    Add phone numbers to the newly added contact
+    Add e-mail addresses to the newly added contact
+Search Contact
+    Search a contact by name.
+    Search contact by phone number.
+    Search contact by e-mail address.
+Edit Contact
+    Edit contact by name.
+    Edit contact by phone number.
+    Edit contact by email address.
+Delete contact
+    Delete by name.
+    Delete contact by phone number.
+    Delete contact by email address.
+List all contacts
+Save the address book.
+Exit the application.
