@@ -3,7 +3,7 @@
 
 int main()
 {
-    cli_setup();
+    cli_driver();
 
     return 0;
 }

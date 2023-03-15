@@ -4,13 +4,10 @@
 #include "../../include/address_book.h"
 
 static int g_numContacts = 0;
-struct contact AddressBook[10];
+static struct contact AddressBook[10];
 
 void addContact(char* name, char* phoneNumber, char* emailAddress)
 {
-    struct contact contact = { name, phoneNumber, emailAddress };
-    printContact(contact);
-
     if (g_numContacts < 10)
     {
         AddressBook[g_numContacts].name = malloc(strlen(name) + 1);
@@ -19,11 +16,22 @@ void addContact(char* name, char* phoneNumber, char* emailAddress)
         strcpy(AddressBook[g_numContacts].phoneNumber, phoneNumber);
         AddressBook[g_numContacts].emailAddress = malloc(strlen(emailAddress) + 1);
         strcpy(AddressBook[g_numContacts].emailAddress, emailAddress);
+
         g_numContacts++;
     }
     else
     {
         printf("You already have 10 contacts, cannot fit any more.\n");
+    }
+}
+
+void cleanAddressBook()
+{
+    for (int i = 0; i < g_numContacts; i++)
+    {
+        free(AddressBook[i].name);
+        free(AddressBook[i].phoneNumber);
+        free(AddressBook[i].emailAddress);
     }
 }
 
@@ -69,73 +77,50 @@ int searchContactByEmail(const char* emailAddress)
     return -1;
 }
 
-void editContactName(char* name, char* newName)
+int editContactName(int index, char* newName)
 {
-    int index = searchContactByName(name);
-    if(index != -1)
-    {
-        AddressBook[index].name = newName;
-    }
-}
-
-void editContactPhone(char* phoneNumber, char* newPhoneNumber)
-{
-    int index = searchContactByPhone(phoneNumber);
-    if(index != -1)
-    {
-        AddressBook[index].phoneNumber = newPhoneNumber;
-    }
-}
-
-void editContactEmail(char* emailAddress, char* newEmailAddress)
-{
-    int index = searchContactByEmail(emailAddress);
-    if(index != -1)
-    {
-        AddressBook[index].emailAddress = newEmailAddress;
-    }
-}
-
-int deleteContactByName(char* name)
-{
-    printf("Deleting...\n");
-    int index = searchContactByName(name);
-
     if (index != -1)
     {
-        for (int i = index; i < g_numContacts; i++)
-        {
-            AddressBook[i] = AddressBook[i + 1];
-            g_numContacts--;
-            return 0;
-        }
+        free(AddressBook[index].name);
+        AddressBook[index].name = malloc(strlen(newName) + 1);
+        strcpy(AddressBook[index].name, newName);
+        return 0;
     }
+    printf("Contact not found.\n");
     return -1;
 }
 
-int deleteContactByPhone(char* phoneNumber)
+int editContactPhone(int index, char* newPhoneNumber)
 {
-    printf("Deleting...\n");
-    int index = searchContactByPhone(phoneNumber);
-
-    if (index != -1)
+    if (index >= 0 && index <= g_numContacts)
     {
-        for (int i = index; i < g_numContacts; i++)
-        {
-            AddressBook[i] = AddressBook[i + 1];
-            g_numContacts--;
-            return 0;
-        }
+        free(AddressBook[index].phoneNumber);
+        AddressBook[index].phoneNumber = malloc(strlen(newPhoneNumber) + 1);
+        strcpy(AddressBook[index].phoneNumber, newPhoneNumber);
+        return 0;
     }
+    printf("Contact not found.\n");
     return -1;
 }
 
-int deleteContactByEmail(char* emailAddress)
+int editContactEmail(int index, char* newEmailAddress)
+{
+    if (index >= 0 && index <= g_numContacts)
+    {
+        free(AddressBook[index].emailAddress);
+        AddressBook[index].emailAddress = malloc(strlen(newEmailAddress) + 1);
+        strcpy(AddressBook[index].emailAddress, newEmailAddress);
+        return 0;
+    }
+    printf("Contact not found.\n");
+    return -1;
+}
+
+int deleteContact(int index)
 {
     printf("Deleting...\n");
-    int index = searchContactByEmail(emailAddress);
 
-    if (index != -1)
+    if (index >= 0 && index <= g_numContacts)
     {
         for (int i = index; i < g_numContacts; i++)
         {
@@ -144,15 +129,13 @@ int deleteContactByEmail(char* emailAddress)
             return 0;
         }
     }
+    printf("Contact not found.\n");
     return -1;
 }
 
 void printContact(struct contact contact)
 {
-    printf("Name: %s\n", contact.name);
-    printf("Phone #: %s\n", contact.phoneNumber);
-    printf("Email Address: %s\n", contact.emailAddress);
-    //printf("Name: %s\nPhone #: %s\nEmail Address: %s\n\n", contact.name, contact.phoneNumber, contact.emailAddress);
+    printf("Name: %s\nPhone #: %s\nEmail Address: %s\n\n", contact.name, contact.phoneNumber, contact.emailAddress);
 }
 
 void listContacts()
@@ -160,17 +143,7 @@ void listContacts()
     for (int i = 0; i < g_numContacts; i++)
     {
         struct contact contact = AddressBook[i];
-        printf("Contact %d\n", i + 1);
+        printf("Contact %d\n", i);
         printContact(contact);
-    }
-}
-
-void cleanAddressBook()
-{
-    for(int i = 0; i < g_numContacts; i++)
-    {
-        free(AddressBook[i].name);
-        free(AddressBook[i].phoneNumber);
-        free(AddressBook[i].emailAddress);
     }
 }
