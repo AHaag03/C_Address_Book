@@ -18,5 +18,4 @@ Delete contact
     Delete contact by email address.
 List all contacts.
 Create CLI interface to interact with user.
-Save the address book to CSV file.
 Exit the application.

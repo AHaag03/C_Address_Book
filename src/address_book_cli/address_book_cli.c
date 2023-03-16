@@ -6,6 +6,12 @@
 
 #define BUFFER_SIZE 64
 
+/*
+* Main driver function for the program.
+* Handles printing to and reading from the CLI.
+*
+* Returns 0 on exit success.
+*/
 int cli_driver()
 {
     char* input = malloc(BUFFER_SIZE);
@@ -43,10 +49,14 @@ int cli_driver()
                 return 0;
             default:
                 printf("Invalid input. Please try again.\n");
+                break;
         }
     }
 }
 
+/*
+* Handles the logic of the user adding a new contact.
+*/
 void handle_add_contact()
 {
     char* name = malloc(BUFFER_SIZE);
@@ -71,6 +81,10 @@ void handle_add_contact()
     free(emailAddress);
 }
 
+/*
+* Handles the logic of the user searching for a contact.
+* Will print contact not found if the contact does not exist
+*/
 void handle_search_contact()
 {
     char* selection = malloc(BUFFER_SIZE);
@@ -117,6 +131,12 @@ void handle_search_contact()
     }
 }
 
+/*
+* Prompts the user to select a contact from
+* the contacts currently in their contact book.
+*
+* Returns the index of the selected contact.
+*/
 int select_contact()
 {
     char* input = malloc(BUFFER_SIZE);
@@ -130,6 +150,9 @@ int select_contact()
     return selection;
 }
 
+/*
+* Handles the logic of the user choosing to edit a contact.
+*/
 void handle_edit_contact()
 {
     int contactIndex = select_contact();
@@ -178,6 +201,9 @@ void handle_edit_contact()
     }
 }
 
+/*
+* Handles the logic of a user choosing to delete a contact
+*/
 void handle_delete_contact()
 {
     int index = select_contact();
