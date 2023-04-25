@@ -25,7 +25,7 @@ int cli_driver()
         printf("5. List Contacts\n");
         printf("6. Exit\n");
 
-        printf(">");
+        printf("> ");
         fgets(input, BUFFER_SIZE, stdin);
         switch (*input)
         {
@@ -45,6 +45,7 @@ int cli_driver()
                 listContacts();
                 break;
             case '6':
+                free(input);
                 cleanAddressBook();
                 return 0;
             default:
@@ -60,17 +61,17 @@ int cli_driver()
 void handle_add_contact()
 {
     char* name = malloc(BUFFER_SIZE);
-    printf("Enter contact name:");
+    printf("Enter contact name: ");
     fgets(name, BUFFER_SIZE, stdin);
     name[strcspn(name, "\n")] = 0;
 
     char* phoneNumber = malloc(BUFFER_SIZE);
-    printf("Enter contact phone number:");
+    printf("Enter contact phone number: ");
     fgets(phoneNumber, BUFFER_SIZE, stdin);
     phoneNumber[strcspn(phoneNumber, "\n")] = 0;
 
     char* emailAddress = malloc(BUFFER_SIZE);
-    printf("Enter contact email address:");
+    printf("Enter contact email address: ");
     fgets(emailAddress, BUFFER_SIZE, stdin);
     emailAddress[strcspn(emailAddress, "\n")] = 0;
 
@@ -93,7 +94,7 @@ void handle_search_contact()
     printf("1. Name\n");
     printf("2. Phone Number\n");
     printf("3. Email Address\n");
-    printf(">");
+    printf("> ");
     fgets(selection, BUFFER_SIZE, stdin);
     switch (*selection)
     {
@@ -142,7 +143,7 @@ int select_contact()
     char* input = malloc(BUFFER_SIZE);
     printf("Select contact\n");
     listContacts();
-    printf(">");
+    printf("> ");
     fgets(input, BUFFER_SIZE, stdin);
     input[strcspn(input, "\n")] = 0;
     int selection = atoi(input);
@@ -162,13 +163,13 @@ void handle_edit_contact()
     printf("1. Name\n");
     printf("2. Phone Number\n");
     printf("3. Email Address\n");
-    printf(">");
+    printf("> ");
     fgets(selection, BUFFER_SIZE, stdin);
 
     switch(*selection)
     {
         case '1':
-            printf("Enter new name:");
+            printf("Enter new name: ");
             char* newName = malloc(BUFFER_SIZE);
             fgets(newName, BUFFER_SIZE, stdin);
             newName[strcspn(newName, "\n")] = 0;
@@ -177,7 +178,7 @@ void handle_edit_contact()
             free(selection);
             break;
         case '2':
-            printf("Enter new phone number:");
+            printf("Enter new phone number: ");
             char* newPhone = malloc(BUFFER_SIZE);
             fgets(newPhone, BUFFER_SIZE, stdin);
             newPhone[strcspn(newPhone, "\n")] = 0;
@@ -186,7 +187,7 @@ void handle_edit_contact()
             free(selection);
             break;
         case '3':
-            printf("Enter new email address:");
+            printf("Enter new email address: ");
             char* newEmail = malloc(BUFFER_SIZE);
             fgets(newEmail, BUFFER_SIZE, stdin);
             newEmail[strcspn(newEmail, "\n")] = 0;

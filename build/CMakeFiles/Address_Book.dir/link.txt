@@ -1,0 +1,3 @@
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f CMakeFiles\Address_Book.dir/objects.a
+C:\mingw64\bin\ar.exe qc CMakeFiles\Address_Book.dir/objects.a @CMakeFiles\Address_Book.dir\objects1
+C:\mingw64\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\Address_Book.dir/objects.a -Wl,--no-whole-archive -o Address_Book.exe -Wl,--out-implib,libAddress_Book.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Address_Book.dir\linkLibs.rsp

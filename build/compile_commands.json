@@ -1,0 +1,17 @@
+[
+{
+  "directory": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/build",
+  "command": "C:\\mingw64\\bin\\gcc.exe   -g -o CMakeFiles\\Address_Book.dir\\src\\main.c.obj -c \"C:\\Users\\alech\\Coding\\Languages\\C\\Projects\\Address Book\\src\\main.c\"",
+  "file": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/src/main.c"
+},
+{
+  "directory": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/build",
+  "command": "C:\\mingw64\\bin\\gcc.exe   -g -o CMakeFiles\\Address_Book.dir\\src\\address_book\\address_book.c.obj -c \"C:\\Users\\alech\\Coding\\Languages\\C\\Projects\\Address Book\\src\\address_book\\address_book.c\"",
+  "file": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/src/address_book/address_book.c"
+},
+{
+  "directory": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/build",
+  "command": "C:\\mingw64\\bin\\gcc.exe   -g -o CMakeFiles\\Address_Book.dir\\src\\address_book_cli\\address_book_cli.c.obj -c \"C:\\Users\\alech\\Coding\\Languages\\C\\Projects\\Address Book\\src\\address_book_cli\\address_book_cli.c\"",
+  "file": "C:/Users/alech/Coding/Languages/C/Projects/Address Book/src/address_book_cli/address_book_cli.c"
+}
+]
